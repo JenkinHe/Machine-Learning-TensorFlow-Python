@@ -26,17 +26,23 @@ train,valid,test= np.split(df.sample(frac=1),[int(0.6*len(df)),int(0.8*len(df))]
 
 # scaling data
 
-def scale_dataset(dataframe):
-    x =dataframe[dataframe.cols[:-1]].values
-    y=dataframe[dataframe.cols[-1]].values
+def scale_dataset(dataframe,oversample=False):
+    x =dataframe[dataframe.columns[:-1]].values
+    y=dataframe[dataframe.columns[-1]].values
 
     scaler=StandardScaler()
 
     x= scaler.fit_transform(x)
 
+    if oversample:
+        ros =RandomOverSampler()
+        x,y=ros.fit_resample(x,y)
+
     data=np.hstack((x,np.reshape(y,(-1,1))))
 
     return data,x,y
 
-print(len(train[train["class"]==1]))#gamma
-print(len(train[train["class"]==0]))#gamma
+train, x_train, y_train = scale_dataset(train,oversample=True)
+valid, x_valid, y_valid = scale_dataset(valid,oversample=False)
+test, x_test, y_test = scale_dataset(test,oversample=False)
+
