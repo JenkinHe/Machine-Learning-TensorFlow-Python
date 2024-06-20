@@ -88,6 +88,24 @@ print(classification_report(y_test,y_pred))
 
 # Neural network
 
+def plot_loss(history):
+    plt.plot(history.history['loss'],label='loss')
+    plt.plot(history.history['val_loss'],label='val_loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Binary crossentropy')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_accuracy(history):
+    plt.plot(history.history['accuracy'],label='accuracy')
+    plt.plot(history.history['val_accuracy'],label='val_accuracy')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 nn_model = tf.keras.Sequential([
     tf.keras.layers.Dense(32,activation='relu',input_shape=(10,)),
     tf.keras.layers.Dense(32,activation='relu'),
@@ -96,4 +114,3 @@ nn_model = tf.keras.Sequential([
 
 nn_model.compile(optimizer=tf.keras.optimizers.Adam(0.001),loss='binary_crossentropy',metrics=['accuracy'])
 
-def plot_loss(history)
