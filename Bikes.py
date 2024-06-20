@@ -162,10 +162,12 @@ MSE(y_pred_nn,y_test_all)
 
 axis = plt.axes(aspect="equal")
 plt.scatter(y_test_all,y_pred_lr,label="Lin Reg Preds")
+plt.scatter(y_test_all,y_pred_nn,label="NN Reg Preds")
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
 lims=[0,2500]
 plt.xlim(lims)
 plt.ylim(lims)
+plt.legend()
 _=plt.plot(lims,lims,c="red")
 plt.show()
