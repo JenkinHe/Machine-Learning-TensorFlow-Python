@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 
 cols=["area", "perimeter","compactness","length","width","asymmetry","groove","class"]
 df = pd.read_csv("seeds_dataset.txt",names=cols,sep="\s+")
@@ -32,6 +33,24 @@ cluster_df= pd.DataFrame(np.hstack((X,clusters.reshape(-1,1))),columns=[x,y,"cla
 
 # K means classes
 
-sns.scatterplot(x=x,y=y,data=cluster_df,hue='class')
-plt.plot()
-plt.show()
+
+
+# Higher Dimension
+
+X=df[cols[:-1]].values
+
+kmeans = KMeans(n_clusters=3).fit(X)
+cluster_df= pd.DataFrame(np.hstack((X,clusters.reshape(-1,1))),columns=df.columns)
+
+# sns.scatterplot(x=x,y=y,data=cluster_df,hue='class')
+# plt.plot()
+# plt.show()
+
+# PCA
+
+pcs =PCA(n_components=2)
+transformed_x =pcs.fit_transform(X)
+
+print(X.shape)
+
+print(transformed_x.shape)
