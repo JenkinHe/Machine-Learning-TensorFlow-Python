@@ -116,7 +116,7 @@ def train_model(x_train,y_train,num_nodes,dropout_prob,lr,batch_size,epochs):
     nn_model.compile(optimizer=tf.keras.optimizers.Adam(lr),loss='binary_crossentropy',metrics=['accuracy'])
 
     history= nn_model.fit(
-        x_train,y_train,epochs=epochs,batch_size=batch_size,validation_split=0.2
+        x_train,y_train,epochs=epochs,batch_size=batch_size,validation_split=0.2,verbose=0
     )
 
     return nn_model,history
@@ -135,6 +135,12 @@ for num_nodes in [16,32,64]:
                 if val_loss<least_val_loss:
                     least_val_loss=val_loss
                     least_loss_model=model
+
+
+y_pred=least_loss_model.predict(x_test)
+y_pred =(y_pred>0.5).astype(int).reshape(-1,)
+
+print(classification_report(y_test,y_pred))
 
 
 
