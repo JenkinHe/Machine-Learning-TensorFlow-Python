@@ -57,3 +57,12 @@ temp_reg = LinearRegression()
 temp_reg.fit(x_train_temp,y_train_temp)
 
 print(temp_reg.score(x_test_temp,y_test_temp))
+
+plt.scatter(x_train_temp,y_train_temp,label="Data",color="blue")
+x=tf.linspace(-20,40,100)
+plt.plot(x,temp_reg.predict(np.array(x).reshape(-1,1)),label="Fit",color="red",linewidth=3)
+plt.legend()
+plt.title("Bikes vs temp")
+plt.ylabel("number of bikes")
+plt.xlabel("Temp")
+plt.show()
