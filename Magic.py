@@ -3,11 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import RandomOverSampler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report
+from sklearn.naive_bayes import GaussianNB
 
 cols =["fLength","fWidth","fSize","fConc","fConc1","fAsym","fM3Long","fM3Trans","fAlpha","fDist","class"]
 df = pd.read_csv("magic04.data",names=cols)
 
-print(df.head())
+# print(df.head())
 
 df["class"] =(df["class"]=="g").astype(int)
 
@@ -48,12 +51,19 @@ test, x_test, y_test = scale_dataset(test,oversample=False)
 
 # K nearest neighbours
 
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report
 
-knn_model=KNeighborsClassifier(n_neighbors=1)
+knn_model=KNeighborsClassifier(n_neighbors=5)
 knn_model.fit(x_train,y_train)
 
 y_pred =knn_model.predict(x_test)
 
+# print(classification_report(y_test,y_pred))
+# Naive bayes model
+nb_model= GaussianNB()
+nb_model=nb_model.fit(x_train,y_train)
+
+y_pred =nb_model.predict(x_test)
+
 print(classification_report(y_test,y_pred))
+
+# Logistic regression
