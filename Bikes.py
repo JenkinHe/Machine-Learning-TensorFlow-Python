@@ -78,3 +78,34 @@ all_reg.fit(x_train_all,y_train_all)
 
 print(all_reg.score(x_test_all,y_test_all))
 
+# Regression with a neural net
+
+def plot_history(history):
+
+    plt.plot(history.history['loss'],label='loss')
+    plt.plot(history.history['val_loss'],label='val_loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('MSE')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+temp_normalizer=tf.keras.layers.Normalization(input_shape=(1,),axis=None)
+temp_normalizer.adapt((x_train_temp).reshape(-1))
+
+temp_nn_model =tf.keras.Sequential([
+    temp_normalizer,
+    tf.keras.layers.Dense(1)
+])
+
+temp_nn_model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),loss='mean_squared_error')
+
+history= temp_nn_model.fit(
+    x_train_temp.reshape(-1), y_train_temp,
+    # verbose=0,
+    epochs=1000,
+    validation_data=(x_val_temp,y_val_temp)
+)
+
+plot_history(history)
