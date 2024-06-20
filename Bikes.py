@@ -6,7 +6,7 @@ from imblearn.over_sampling import RandomOverSampler
 import copy
 import seaborn as sns
 import tensorflow as tf
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
 
 
 # Linear Regression
@@ -53,4 +53,7 @@ _, x_train_temp,y_train_temp=get_xy(train,"bike_count",x_label=["temp"])
 _, x_val_temp,y_val_temp=get_xy(val,"bike_count",x_label=["temp"])
 _, x_test_temp,y_test_temp=get_xy(test,"bike_count",x_label=["temp"])
 
+temp_reg = LinearRegression()
+temp_reg.fit(x_train_temp,y_train_temp)
 
+print(temp_reg.score(x_test_temp,y_test_temp))
