@@ -46,3 +46,14 @@ train, x_train, y_train = scale_dataset(train,oversample=True)
 valid, x_valid, y_valid = scale_dataset(valid,oversample=False)
 test, x_test, y_test = scale_dataset(test,oversample=False)
 
+# K nearest neighbours
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report
+
+knn_model=KNeighborsClassifier(n_neighbors=1)
+knn_model.fit(x_train,y_train)
+
+y_pred =knn_model.predict(x_test)
+
+print(classification_report(y_test,y_pred))
