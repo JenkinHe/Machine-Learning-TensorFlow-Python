@@ -36,7 +36,7 @@ train,val,test=np.split(df.sample(frac=1), [int(0.6*len(df)),int(0.8*len(df))])
 
 def get_xy(dataframe,y_label, x_label=None):
     dataframe=copy.deepcopy(dataframe)
-    if not x_label:
+    if  x_label is None:
         x= dataframe[[c for c in dataframe.columns if c!=y_label]].values
     else:
         if len(x_label)==1:
@@ -56,13 +56,25 @@ _, x_test_temp,y_test_temp=get_xy(test,"bike_count",x_label=["temp"])
 temp_reg = LinearRegression()
 temp_reg.fit(x_train_temp,y_train_temp)
 
-print(temp_reg.score(x_test_temp,y_test_temp))
+# print(temp_reg.score(x_test_temp,y_test_temp))
 
-plt.scatter(x_train_temp,y_train_temp,label="Data",color="blue")
-x=tf.linspace(-20,40,100)
-plt.plot(x,temp_reg.predict(np.array(x).reshape(-1,1)),label="Fit",color="red",linewidth=3)
-plt.legend()
-plt.title("Bikes vs temp")
-plt.ylabel("number of bikes")
-plt.xlabel("Temp")
-plt.show()
+# plt.scatter(x_train_temp,y_train_temp,label="Data",color="blue")
+# x=tf.linspace(-20,40,100)
+# plt.plot(x,temp_reg.predict(np.array(x).reshape(-1,1)),label="Fit",color="red",linewidth=3)
+# plt.legend()
+# plt.title("Bikes vs temp")
+# plt.ylabel("number of bikes")
+# plt.xlabel("Temp")
+# plt.show()
+
+
+# Multiple linear regression
+_, x_train_all,y_train_all=get_xy(train,"bike_count",x_label=df.columns[1:])
+_, x_val_all,y_val_all=get_xy(val,"bike_count",x_label=df.columns[1:])
+_, x_test_all,y_test_all=get_xy(test,"bike_count",x_label=df.columns[1:])
+
+all_reg = LinearRegression()
+all_reg.fit(x_train_all,y_train_all)
+
+print(all_reg.score(x_test_all,y_test_all))
+
