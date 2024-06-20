@@ -87,3 +87,13 @@ y_pred =svm_model.predict(x_test)
 print(classification_report(y_test,y_pred))
 
 # Neural network
+
+nn_model = tf.keras.Sequential([
+    tf.keras.layers.Dense(32,activation='relu',input_shape=(10,)),
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(1,activation='sigmoid')
+])
+
+nn_model.compile(optimizer=tf.keras.optimizers.Adam(0.001),loss='binary_crossentropy',metrics=['accuracy'])
+
+def plot_loss(history)
