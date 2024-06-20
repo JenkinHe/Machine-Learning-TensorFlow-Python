@@ -150,5 +150,13 @@ history= nn_model.fit(
     epochs=100,
 )
 
+# calculate the mse for both linear reg and nn
+y_pred_lr=all_reg.predict(x_test_all)
+y_pred_nn=nn_model.predict(x_test_all)
 
-plot_history(history)
+def MSE(y_pred,y_real):
+    return(np.square(y_pred-y_real)).mean()
+
+MSE(y_pred_lr,y_test_all)
+MSE(y_pred_nn,y_test_all)
+
