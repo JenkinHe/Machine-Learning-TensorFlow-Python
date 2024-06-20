@@ -8,6 +8,7 @@ from sklearn.metrics import classification_report
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
+import tensorflow as tf
 
 cols =["fLength","fWidth","fSize","fConc","fConc1","fAsym","fM3Long","fM3Trans","fAlpha","fDist","class"]
 df = pd.read_csv("magic04.data",names=cols)
@@ -84,3 +85,5 @@ svm_model = svm_model.fit(x_train,y_train)
 y_pred =svm_model.predict(x_test)
 
 print(classification_report(y_test,y_pred))
+
+# Neural network
